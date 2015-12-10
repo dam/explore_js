@@ -10,15 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var angular2_1 = require('angular2/angular2');
+var heroes_service_1 = require('./heroes-service');
 var Hero = (function () {
     function Hero() {
     }
     return Hero;
 })();
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(heroService) {
         this.title = 'Tour of heroes';
-        this.heroes = HEROS;
+        this.heroes = heroService.getHeroes();
     }
     AppComponent.prototype.onSelect = function (hero) {
         this.selectedHero = hero;
@@ -33,21 +34,9 @@ var AppComponent = (function () {
             template: "\n\t  <h1>{{title}}</h1>\n\t\t<h2>My Heroes</h2>\n\t\t<ul class=\"heroes\">\n\t\t  <li *ng-for=\"#hero of heroes\" (click)=\"onSelect(hero)\" [ng-class]=\"getSelectedClass(hero)\">\n\t\t\t  <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n\t\t\t</li>\n\t\t</ul>\n\t\t<div *ng-if=\"selectedHero\">\n\t\t  <h2>{{selectedHero.name}} details!</h2>\n\t\t  <div><label>id: </label>{{selectedHero.id}}</div>\n\t\t  <div>\n\t\t    <label>name: </label>\n\t\t\t  <div><input [(ng-model)]=\"selectedHero.name\" placeholder=\"name\"/></div>\n\t\t  </div>\n\t\t</div>\n\t\t",
             styles: ["\n\t\t.heroes {list-style-type: none; margin-left: 1em; padding: 0; width: 10em;}\n    .heroes li { cursor: pointer; position: relative; left: 0; transition: all 0.2s ease; }\n    .heroes li:hover {color: #369; background-color: #EEE; left: .2em;}\n    .heroes .badge {\n      font-size: small;\n      color: white;\n      padding: 0.1em 0.7em;\n      background-color: #369;\n      line-height: 1em;\n      position: relative;\n      left: -1px;\n      top: -1px;\n    }\n    .selected { background-color: #EEE; color: #369; }\n\t"]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [heroes_service_1.HeroService])
     ], AppComponent);
     return AppComponent;
 })();
-angular2_1.bootstrap(AppComponent);
-var HEROS = [
-    { id: 11, name: 'Mr. Nice' },
-    { id: 12, name: "Narco" },
-    { id: 13, name: "Bombasto" },
-    { id: 14, name: "Celeritas" },
-    { id: 15, name: "Magneta" },
-    { id: 16, name: "RubberMan" },
-    { id: 17, name: "Dynama" },
-    { id: 18, name: "Dr IQ" },
-    { id: 19, name: "Magma" },
-    { id: 20, name: "Tornado" }
-];
+angular2_1.bootstrap(AppComponent, [heroes_service_1.HeroService]);
 //# sourceMappingURL=app.js.map

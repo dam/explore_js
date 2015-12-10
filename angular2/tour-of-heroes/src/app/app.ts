@@ -1,6 +1,7 @@
 /// <reference path="../../node_modules/angular2/typings/tsd.d.ts" />
 'use strict';
 import {bootstrap, Component, FORM_DIRECTIVES,CORE_DIRECTIVES} from 'angular2/angular2';
+import {HeroService} from './heroes-service';
 
 class Hero {
 	id: number;
@@ -46,8 +47,12 @@ class Hero {
 })
 class AppComponent {
 	public title = 'Tour of heroes';
-	public heroes = HEROS;
+	public heroes;
 	public selectedHero: Hero;
+	
+	constructor(heroService: HeroService) {
+		this.heroes = heroService.getHeroes();
+	}
 	
 	onSelect(hero: Hero) {
 		this.selectedHero = hero;
@@ -58,17 +63,5 @@ class AppComponent {
   }
 }
 
-bootstrap(AppComponent);
+bootstrap(AppComponent, [HeroService]);
 
-var HEROS: Hero[] = [
-	{ id: 11, name: 'Mr. Nice' },
-	{ id: 12, name: "Narco" },
-	{ id: 13, name: "Bombasto" },
-  { id: 14, name: "Celeritas" },
-  { id: 15, name: "Magneta" },
-  { id: 16, name: "RubberMan" },
-  { id: 17, name: "Dynama" },
-  { id: 18, name: "Dr IQ" },
-  { id: 19, name: "Magma" },
-  { id: 20, name: "Tornado" }
-];
